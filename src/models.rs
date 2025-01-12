@@ -2,25 +2,26 @@ use wasm_bindgen::prelude::wasm_bindgen;
 
 #[wasm_bindgen]
 pub struct Step {
-    array: Vec<i32>,
     index_a: usize,
     index_b: usize,
+
+    snapshot: Vec<i32>,
 }
 
 #[wasm_bindgen]
 impl Step {
     #[wasm_bindgen(constructor)]
-    pub fn new(array: Vec<i32>, index_a: usize, index_b: usize) -> Self {
+    pub fn new(index_a: usize, index_b: usize, snapshot: Vec<i32>) -> Self {
         Step {
-            array,
             index_a,
             index_b,
+            snapshot,
         }
     }
 
     #[wasm_bindgen(getter)]
-    pub fn array(&self) -> Vec<i32> {
-        self.array.clone()
+    pub fn snapshot(&self) -> Vec<i32> {
+        self.snapshot.clone()
     }
 
     #[wasm_bindgen(getter)]

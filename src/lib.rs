@@ -5,6 +5,7 @@ mod merge_sort;
 mod models;
 mod quick_sort;
 mod selection_sort;
+mod snapshot_handler;
 mod sort;
 
 pub use sort::{sort, Algorithm};

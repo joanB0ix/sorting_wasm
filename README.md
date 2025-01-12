@@ -10,4 +10,6 @@ This library currently implements:
 * Merge sort.
 * Heap sort.
 
-Each one of them return as a result all the steps taken to achieve the sorting, coupled with the two items that were being swapped at each point.
+Each one of them return as a result all the steps as snapshots taken to achieve the sorting, coupled with the two items that were being swapped at each point.
+
+Since snapshots take lot's of memory, therefore the library offers the option to not return them and only return the delta.
