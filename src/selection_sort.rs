@@ -1,10 +1,6 @@
-use wasm_bindgen::prelude::wasm_bindgen;
-
 use crate::models::Step;
 
-#[wasm_bindgen]
-pub fn selection_sort(arr: Vec<i32>) -> Vec<Step> {
-    let mut arr = arr.clone();
+pub fn selection_sort(arr: &mut Vec<i32>) -> Vec<Step> {
     let mut steps = vec![];
     let len = arr.len();
 
@@ -36,16 +32,16 @@ mod tests {
 
     #[test]
     fn test_selection_sort_empty_array_returns_no_steps() {
-        let arr = vec![];
-        let steps = selection_sort(arr);
+        let mut arr: Vec<i32> = vec![];
+        let steps = selection_sort(&mut arr);
 
         assert_eq!(steps.len(), 0, "Expected 0 steps for an empty array");
     }
 
     #[test]
     fn test_selection_sort_sorted_array_returns_no_steps() {
-        let arr = vec![1, 2, 3, 4, 5];
-        let steps = selection_sort(arr.clone());
+        let mut arr = vec![1, 2, 3, 4, 5];
+        let steps = selection_sort(&mut arr);
 
         assert_eq!(
             steps.len(),
@@ -56,8 +52,8 @@ mod tests {
 
     #[test]
     fn test_selection_sort_unsorted_array_returns_steps() {
-        let arr = vec![3, 1, 2];
-        let steps = selection_sort(arr.clone());
+        let mut arr = vec![3, 1, 2];
+        let steps = selection_sort(&mut arr);
 
         assert!(
             !steps.is_empty(),

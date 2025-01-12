@@ -1,21 +1,17 @@
-use wasm_bindgen::prelude::wasm_bindgen;
-
 use crate::models::Step;
 
-#[wasm_bindgen]
-pub fn heap_sort(arr: Vec<i32>) -> Vec<Step> {
-    let mut arr = arr.clone();
+pub fn heap_sort(arr: &mut Vec<i32>) -> Vec<Step> {
     let mut steps = vec![];
     let len = arr.len();
 
     for i in (0..len / 2).rev() {
-        heapify(&mut arr, len, i, &mut steps);
+        heapify(arr, len, i, &mut steps);
     }
 
     for i in (1..len).rev() {
         arr.swap(0, i);
         steps.push(Step::new(arr.clone(), 0, i));
-        heapify(&mut arr, i, 0, &mut steps);
+        heapify(arr, i, 0, &mut steps);
     }
 
     steps
@@ -51,16 +47,16 @@ mod tests {
 
     #[test]
     fn test_heap_sort_empty_array_returns_no_steps() {
-        let arr = vec![];
-        let steps = heap_sort(arr);
+        let mut arr: Vec<i32> = vec![];
+        let steps = heap_sort(&mut arr);
 
         assert_eq!(steps.len(), 0, "Expected 0 steps for an empty array");
     }
 
     #[test]
     fn test_heap_sort_unsorted_array_returns_steps() {
-        let arr = vec![3, 1, 2];
-        let steps = heap_sort(arr.clone());
+        let mut arr = vec![3, 1, 2];
+        let steps = heap_sort(&mut arr);
 
         assert!(
             !steps.is_empty(),

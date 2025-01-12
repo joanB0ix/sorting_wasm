@@ -1,13 +1,9 @@
-use wasm_bindgen::prelude::wasm_bindgen;
-
 use crate::models::Step;
 
-#[wasm_bindgen]
-pub fn quick_sort(arr: Vec<i32>) -> Vec<Step> {
-    let mut arr = arr.clone();
+pub fn quick_sort(arr: &mut Vec<i32>) -> Vec<Step> {
     let mut steps = vec![];
     let len = arr.len();
-    quick_sort_helper(&mut arr, 0, len - 1, &mut steps);
+    quick_sort_helper(arr, 0, len - 1, &mut steps);
     steps
 }
 
@@ -48,8 +44,8 @@ mod tests {
 
     #[test]
     fn test_quick_sort_unsorted_array_returns_steps() {
-        let arr = vec![3, 1, 2];
-        let steps = quick_sort(arr.clone());
+        let mut arr = vec![3, 1, 2];
+        let steps = quick_sort(&mut arr);
 
         assert!(
             !steps.is_empty(),

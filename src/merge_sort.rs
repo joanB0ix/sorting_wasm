@@ -1,15 +1,11 @@
 use std::vec;
 
-use wasm_bindgen::prelude::wasm_bindgen;
-
 use crate::models::Step;
 
-#[wasm_bindgen]
-pub fn merge_sort(arr: Vec<i32>) -> Vec<Step> {
-    let mut arr = arr.clone();
+pub fn merge_sort(arr: &mut Vec<i32>) -> Vec<Step> {
     let mut steps = vec![];
     let len = arr.len();
-    merge_sort_helper(&mut arr, 0, len, &mut steps);
+    merge_sort_helper(arr, 0, len, &mut steps);
     steps
 }
 
@@ -65,16 +61,16 @@ mod tests {
 
     #[test]
     fn test_merge_sort_empty_array_returns_no_steps() {
-        let arr = vec![];
-        let steps = merge_sort(arr);
+        let mut arr: Vec<i32> = vec![];
+        let steps = merge_sort(&mut arr);
 
         assert_eq!(steps.len(), 0, "Expected 0 steps for an empty array");
     }
 
     #[test]
     fn test_merge_sort_unsorted_array_returns_steps() {
-        let arr = vec![3, 1, 2];
-        let steps = merge_sort(arr.clone());
+        let mut arr: Vec<i32> = vec![3, 1, 2];
+        let steps = merge_sort(&mut arr);
 
         assert!(
             !steps.is_empty(),

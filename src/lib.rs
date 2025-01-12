@@ -1,8 +1,10 @@
-pub mod bubble_sort;
-pub mod heap_sort;
-pub mod insertion_sort;
-pub mod merge_sort;
-pub mod quick_sort;
-pub mod selection_sort;
+mod bubble_sort;
+mod heap_sort;
+mod insertion_sort;
+mod merge_sort;
+mod models;
+mod quick_sort;
+mod selection_sort;
+mod sort;
 
-pub mod models;
+pub use sort::{sort, Algorithm};
