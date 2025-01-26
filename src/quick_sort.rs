@@ -36,15 +36,17 @@ where
     let mut i = low;
 
     for j in low..high {
+        snapshot_handler.record(arr, j, high);
+
         if arr[j] <= pivot {
             arr.swap(i, j);
-            snapshot_handler.record_swap(arr, i, j);
+            snapshot_handler.record(arr, i, j);
             i += 1;
         }
     }
 
     arr.swap(i, high);
-    snapshot_handler.record_swap(arr, i, high);
+    snapshot_handler.record(arr, i, high);
 
     i
 }

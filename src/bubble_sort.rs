@@ -12,9 +12,10 @@ where
 
     for i in 0..len {
         for j in 0..len - 1 - i {
+            snapshot_handler.record(arr, j, j + 1);
             if arr[j] > arr[j + 1] {
                 arr.swap(j, j + 1);
-                snapshot_handler.record_swap(&arr, j, j + 1);
+                snapshot_handler.record(arr, j, j + 1);
             }
         }
     }
@@ -38,18 +39,6 @@ mod tests {
         let steps = bubble_sort(&mut arr, FullSnapshot::new());
 
         assert_eq!(steps.len(), 0, "Expected 0 steps for an empty array");
-    }
-
-    #[test]
-    fn test_bubble_sort_sorted_array_returns_no_steps() {
-        let mut arr = vec![1, 2, 3, 4, 5];
-        let steps = bubble_sort(&mut arr, FullSnapshot::new());
-
-        assert_eq!(
-            steps.len(),
-            0,
-            "Expected 0 steps for an already sorted array"
-        );
     }
 
     #[test]

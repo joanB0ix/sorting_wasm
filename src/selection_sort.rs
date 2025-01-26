@@ -14,6 +14,8 @@ where
         let mut min_index = i;
 
         for j in i + 1..len {
+            snapshot_handler.record(arr, j, min_index);
+
             if arr[j] < arr[min_index] {
                 min_index = j;
             }
@@ -21,7 +23,7 @@ where
 
         if min_index != i {
             arr.swap(i, min_index);
-            snapshot_handler.record_swap(arr, i, min_index);
+            snapshot_handler.record(arr, i, min_index);
         }
     }
 
@@ -43,18 +45,6 @@ mod tests {
         let steps = selection_sort(&mut arr, FullSnapshot::new());
 
         assert_eq!(steps.len(), 0, "Expected 0 steps for an empty array");
-    }
-
-    #[test]
-    fn test_selection_sort_sorted_array_returns_no_steps() {
-        let mut arr = vec![1, 2, 3, 4, 5];
-        let steps = selection_sort(&mut arr, FullSnapshot::new());
-
-        assert_eq!(
-            steps.len(),
-            0,
-            "Expected 0 steps for an already sorted array"
-        );
     }
 
     #[test]

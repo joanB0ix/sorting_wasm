@@ -1,7 +1,7 @@
 use crate::models::Step;
 
 pub trait SnapshotHandler {
-    fn record_swap(&mut self, arr: &[i32], i: usize, j: usize);
+    fn record(&mut self, arr: &[i32], i: usize, j: usize);
 
     fn finish(self) -> Vec<Step>;
 }
@@ -17,7 +17,7 @@ impl IndicesOnly {
 }
 
 impl SnapshotHandler for IndicesOnly {
-    fn record_swap(&mut self, arr: &[i32], i: usize, j: usize) {
+    fn record(&mut self, arr: &[i32], i: usize, j: usize) {
         let snapshot = vec![arr[i], arr[j]];
         self.steps.push(Step::new(i, j, snapshot));
     }
@@ -38,7 +38,7 @@ impl FullSnapshot {
 }
 
 impl SnapshotHandler for FullSnapshot {
-    fn record_swap(&mut self, arr: &[i32], i: usize, j: usize) {
+    fn record(&mut self, arr: &[i32], i: usize, j: usize) {
         self.steps.push(Step::new(i, j, arr.to_vec()));
     }
 

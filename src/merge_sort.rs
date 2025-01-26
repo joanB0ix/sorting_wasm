@@ -38,6 +38,8 @@ where
     let (mut i, mut j) = (left, mid);
 
     while i < mid && j < right {
+        snapshot_handler.record(arr, i, j);
+
         if arr[i] <= arr[j] {
             temp.push(arr[i]);
             i += 1;
@@ -59,9 +61,10 @@ where
 
     for (k, &val) in temp.iter().enumerate() {
         arr[left + k] = val;
+        snapshot_handler.record(arr, left, left + k);
     }
 
-    snapshot_handler.record_swap(arr, left, right);
+    snapshot_handler.record(arr, left, right);
 }
 
 #[cfg(test)]

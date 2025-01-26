@@ -16,7 +16,7 @@ where
 
     for i in (1..len).rev() {
         arr.swap(0, i);
-        snapshot_handler.record_swap(arr, 0, i);
+        snapshot_handler.record(arr, 0, i);
         heapify(arr, i, 0, &mut snapshot_handler);
     }
 
@@ -31,17 +31,23 @@ where
     let left = 2 * root + 1;
     let right = 2 * root + 2;
 
-    if left < heap_size && arr[left] > arr[largest] {
-        largest = left;
+    if left < heap_size {
+        snapshot_handler.record(arr, left, largest);
+        if arr[left] > arr[largest] {
+            largest = left;
+        }
     }
 
-    if right < heap_size && arr[right] > arr[largest] {
-        largest = right;
+    if right < heap_size {
+        snapshot_handler.record(arr, right, largest);
+        if arr[right] > arr[largest] {
+            largest = right;
+        }
     }
 
     if largest != root {
         arr.swap(root, largest);
-        snapshot_handler.record_swap(arr, root, largest);
+        snapshot_handler.record(arr, root, largest);
         heapify(arr, heap_size, largest, snapshot_handler);
     }
 }
